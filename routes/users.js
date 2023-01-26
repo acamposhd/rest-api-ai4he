@@ -1,7 +1,10 @@
 const express = require("express");
 const router = express.Router();
+const sqlite3 = require("sqlite3");
 
-router.get("/users/:id", (req, res, next) => {
+const db = new sqlite3.Database("./chrome_ext_database.db");
+
+router.get("/:id", (req, res, next) => {
   const { id } = [req.params];
   db.get("SELECT * FROM users where id = ?", [id], (err, row) => {
     if (err) {
@@ -12,7 +15,7 @@ router.get("/users/:id", (req, res, next) => {
   });
 });
 
-router.get("/users", (_req, res, next) => {
+router.get("/", (_req, res, next) => {
   db.all("SELECT * FROM users", [], (err, rows) => {
     if (err) {
       res.status(400).json({ error: err.message });
@@ -22,7 +25,7 @@ router.get("/users", (_req, res, next) => {
   });
 });
 
-router.post("/users/", (_req, res, next) => {
+router.post("/", (_req, res, next) => {
   const { username, name, password } = re.body;
   db.run(
     "INSERT INTO users (username, name, password) VALUES (?,?,?)",
@@ -39,7 +42,7 @@ router.post("/users/", (_req, res, next) => {
   );
 });
 
-router.patch("/users/", (req, res, next) => {
+router.patch("/", (req, res, next) => {
   const { username, name, password, id } = re.body;
   db.run(
     `UPDATE users set username = ?, name = ?, password = ? WHERE id = ?`,
@@ -54,7 +57,7 @@ router.patch("/users/", (req, res, next) => {
   );
 });
 
-router.delete("/users/:id", (req, res, _next) => {
+router.delete("/:id", (req, res, _next) => {
   db.run(
     `DELETE FROM user WHERE id = ?`,
     req.params.id,

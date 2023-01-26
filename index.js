@@ -8,7 +8,7 @@ require("dotenv").config();
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use("/todos", userRoute);
+app.use("/users", userRoute);
 
 const db = new sqlite3.Database("./chrome_ext_database.db", (err) => {
   if (err) {
