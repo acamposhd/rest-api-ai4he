@@ -1,7 +1,7 @@
 {
-  "name": "todo-app-backend",
+  "name": "tab-tracker-backend",
   "version": "1.0.0",
-  "description": "Backend for our react applpication.",
+  "description": "Backend for our tab-tracker app applpication.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
